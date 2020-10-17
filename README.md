@@ -24,22 +24,30 @@ creating a section **\<section>**
 local tab = uilib:CreateSection(<tab>, <sectionname>)
 ```
 
-creating a textbox **\<textbox>** -- returns textbox
+creating a textbox -- returns textbox
 ```lua
 local tab = uilib:CreateTextBox(<tab>, <section>, <placeholdertext>)
 ```
 
-creating a button **\<button>** -- returns textbutton
+creating a button  -- returns textbutton
 ```lua
-local tab = uilib:CreateTab(<section>, <guiname>)
+local tab = uilib:CreateTab(<section>, <name>)
 ```
 
-creating a toggle button **\<button>** -- returns boolvalue
+creating a toggle button  -- returns boolvalue
 ```lua
-local tab = uilib:CreateToggle(<section>, <guiname>)
+local tab = uilib:CreateToggle(<section>, <name>)
+```
+
+creating a keybind -- returns string (lower)
+```lua
+local tab = uilib:CreateKeybind(<section>, <name>, <bind>)
 ```
 
 # to do:
  - sliders
  - colour picker
  - uh some other stuff too
+
+
+

@@ -60,6 +60,32 @@ module.CreateGUI = function(Player, GUIName)
 	UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIGridLayout.CellPadding = UDim2.new(0, 0, 0, 0)
 	UIGridLayout.CellSize = UDim2.new(0, 100, 0, 30)
+	
+	local UIWelcome = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+
+	UIWelcome.Name = "UI-Welcome"
+	UIWelcome.Parent = UIContents
+	UIWelcome.Active = true
+	UIWelcome.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	UIWelcome.BackgroundTransparency = 1.000
+	UIWelcome.BorderColor3 = Color3.fromRGB(60, 60, 60)
+	UIWelcome.ClipsDescendants = true
+	UIWelcome.Position = UDim2.new(0.268844217, 3, 0.5, -135)
+	UIWelcome.Selectable = true
+	UIWelcome.Size = UDim2.new(0, 281, 0, 270)
+
+	TextLabel.Parent = UIWelcome
+	TextLabel.RichText = true
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(0.125, 0, 0.162962958, 0)
+	TextLabel.Size = UDim2.new(0, 216, 0, 157)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Text = "<b><font color= \"rgb(242, 140, 255)\">"..GUIName.."</font></b>\nthis ui uses uilib by keda :3"
+	
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextSize = 20.000
 	return UIFrame
 end
 
@@ -131,8 +157,9 @@ module.CreateTab = function(Player, GUI, TabName)
 		if not Active.Value then
 			for i,v in pairs(GUI["UI-Contents"]["UI-Select"]:GetChildren()) do
 				if v:IsA("Frame") and v.Name ~= TabName then
-					v.Active.Value = false
-					v.TextButton.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+					v.Value.Value = false
+					GUI["UI-Contents"][v.Name].Visible = false
+					TweenService:Create(v.TextButton, ti, {BackgroundColor3 = Color3.fromRGB(38, 38, 38)}):Play()
 				end
 			end
 			Active.Value = true
@@ -424,7 +451,7 @@ module.CreateKeybind = function(Player, Section, Name, PlaceHolder)
 	Keybind_2.Position = UDim2.new(0.075000003, 0, 0, 0)
 	Keybind_2.Size = UDim2.new(0, 55, 0, 30)
 	Keybind_2.Font = Enum.Font.SourceSans
-	Keybind_2.Text = Name
+	Keybind_2.Text = "Keybind"
 	Keybind_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Keybind_2.TextSize = 14.000
 	Keybind_2.TextXAlignment = Enum.TextXAlignment.Left

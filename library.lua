@@ -474,7 +474,7 @@ module.CreateKeybind = function(Player, Section, Name, PlaceHolder)
 	TextBox.FocusLost:Connect(function()
 		KeybindButton = string.upper(string.sub(TextBox.Text, 1, 1))
 		TextBox.Text = KeybindButton
-		StringVal.Value = KeybindButton
+		StringVal.Value = string.lower(KeybindButton)
 	end)
 	
 	return StringVal

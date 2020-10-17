@@ -338,7 +338,15 @@ module.CreateToggle = function(Player, Section, Name, Colour)
 
 	local TweenIn = TweenService:Create(Button, ti, {BackgroundColor3 = Colour}) 
 	local TweenOut = TweenService:Create(Button, ti, {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}) 
-
+	
+	local function SetStatus()
+		if BoolValue.Value then
+			TweenIn:Play()
+		else
+			TweenOut:Play()
+		end
+	end
+	
 	Button.MouseEnter:Connect(function()
 		if not BoolValue.Value then
 			TweenIn:Play()
@@ -353,13 +361,13 @@ module.CreateToggle = function(Player, Section, Name, Colour)
 
 	Button.MouseButton1Click:Connect(function()
 		BoolValue.Value = not BoolValue.Value
-		if BoolValue.Value then
-			TweenIn:Play()
-		else
-			TweenOut:Play()
-		end
+		SetStatus()
 	end)
-
+	
+	BoolValue:GetPropertyChangedSignal("Value"):Connect(function()
+		SetStatus()
+	end)
+	
 	return BoolValue
 end
 
@@ -388,5 +396,60 @@ module.CreateText = function(Player, Section, Name)
 	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabel.TextSize = 14.000
 	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+end
+
+module.CreateKeybind = function(Player, Section, Name, PlaceHolder)
+	local Keybind = Instance.new("Frame")
+	local Keybind_2 = Instance.new("TextLabel")
+	local TextBox = Instance.new("TextBox")
+	local StringVal = Instance.new("StringValue")
+	PlaceHolder = string.upper(string.sub(PlaceHolder, 1, 1))
+	local KeybindButton = PlaceHolder
+	
+	Keybind.Name = "Keybind"
+	Keybind.Parent = Section
+	Keybind.Active = true
+	Keybind.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	Keybind.BackgroundTransparency = 1.000
+	Keybind.BorderColor3 = Color3.fromRGB(60, 60, 60)
+	Keybind.ClipsDescendants = true
+	Keybind.Position = UDim2.new(0.5, -62, 0.0274509806, 0)
+	Keybind.Selectable = true
+	Keybind.Size = UDim2.new(0, 125, 0, 30)
+
+	Keybind_2.Name = "Keybind"
+	Keybind_2.Parent = Keybind
+	Keybind_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Keybind_2.BackgroundTransparency = 1.000
+	Keybind_2.Position = UDim2.new(0.075000003, 0, 0, 0)
+	Keybind_2.Size = UDim2.new(0, 55, 0, 30)
+	Keybind_2.Font = Enum.Font.SourceSans
+	Keybind_2.Text = "Keybind"
+	Keybind_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Keybind_2.TextSize = 14.000
+	Keybind_2.TextXAlignment = Enum.TextXAlignment.Left
+
+	TextBox.Parent = Keybind
+	TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	TextBox.BorderColor3 = Color3.fromRGB(30, 30, 30)
+	TextBox.BorderSizePixel = 0
+	TextBox.Position = UDim2.new(0.65, 0, 0.13333334, 0)
+	TextBox.Size = UDim2.new(0, 33, 0, 20)
+	TextBox.Font = Enum.Font.SourceSans
+	TextBox.PlaceholderText = ""
+	TextBox.Text = PlaceHolder
+	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextBox.TextSize = 14.000
+	
+	StringVal.Parent = TextBox
+	StringVal.Value = PlaceHolder
+	
+	TextBox.FocusLost:Connect(function()
+		KeybindButton = string.upper(string.sub(TextBox.Text, 1, 1))
+		TextBox.Text = KeybindButton
+		StringVal.Value = KeybindButton
+	end)
+	
+	return StringVal
 end
 return module

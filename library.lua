@@ -276,6 +276,7 @@ end
 module.CreateButton = function(Player, Section, Name)
 	local Button = Instance.new("Frame")
 	local Button_2 = Instance.new("TextButton")
+	local ButtonEnabled = Instance.new("BoolValue")
 
 	Button.Name = Name
 	Button.Parent = Section
@@ -300,17 +301,33 @@ module.CreateButton = function(Player, Section, Name)
 	Button_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Button_2.TextSize = 14.000
 	Button_2.Text = Name
-
+	
+	ButtonEnabled.Parent = Button_2
+	ButtonEnabled.Value = true
+	
 	local TweenIn = TweenService:Create(Button_2, ti, {BackgroundColor3 = Color3.fromRGB(59, 59, 59)}) 
 	local TweenOut = TweenService:Create(Button_2, ti, {BackgroundColor3 = Color3.fromRGB(50, 50, 50)}) 
+	local TweenDisable = TweenService:Create(Button_2, ti, {BackgroundTransparency = 1})
+	local TweenEnable = TweenService:Create(Button_2, ti, {BackgroundTransparency = 0})
+	
+	if ButtonEnabled.Value then
+		Button.MouseEnter:Connect(function()
+			TweenIn:Play()
+		end)
 
-	Button.MouseEnter:Connect(function()
-		TweenIn:Play()
+		Button.MouseLeave:Connect(function()
+			TweenOut:Play()
+		end)
+	end
+	
+	ButtonEnabled:GetPropertyChangedSignal("Value"):Connect(function()
+		if ButtonEnabled.Value == false then
+			TweenDisable:Play()
+		else
+			TweenEnable:Play()
+		end
 	end)
-
-	Button.MouseLeave:Connect(function()
-		TweenOut:Play()
-	end)
+	
 	return Button_2
 end
 

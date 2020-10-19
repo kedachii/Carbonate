@@ -1,7 +1,7 @@
 
 # Carbonate :3
-ui library based on uwuware
-i'm not good at writing these
+ - ui lib based on uwuware
+ - i'm not good at writing these
 
 # Usage
 ## Loading the library:

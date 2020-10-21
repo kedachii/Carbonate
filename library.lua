@@ -273,6 +273,87 @@ module.CreateTextBox = function(Player, Section, Name, PlaceHolder)
 	return TextBox
 end
 
+module.CreateVector3 = function(Player, Section, Name, PlaceHolder)
+	local Value = Instance.new("Frame")
+	local TextLabel = Instance.new("TextLabel")
+	local TextBox = Instance.new("TextBox")
+	
+	Value.Name = "Value"
+	Value.Parent = Section
+	Value.Active = true
+	Value.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	Value.BackgroundTransparency = 1.000
+	Value.BorderColor3 = Color3.fromRGB(60, 60, 60)
+	Value.ClipsDescendants = true
+	Value.Position = UDim2.new(0.5, -62, 0.0274509806, 0)
+	Value.Selectable = true
+	Value.Size = UDim2.new(0, 125, 0, 30)
+
+	TextLabel.Parent = Value
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(0.075000003, 0, 0, 0)
+	TextLabel.Size = UDim2.new(0, 55, 0, 30)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextSize = 14.000
+	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+	TextLabel.Text = Name
+
+	TextBox.Parent = Value
+	TextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	TextBox.BorderColor3 = Color3.fromRGB(30, 30, 30)
+	TextBox.Position = UDim2.new(0.925000012, -55, 0.666666627, -15)
+	TextBox.Size = UDim2.new(0, 55, 0, 20)
+	TextBox.Font = Enum.Font.SourceSans
+
+	if PlaceHolder then
+		TextBox.PlaceholderText = PlaceHolder
+	else
+		TextBox.PlaceholderText = "Value"
+	end
+	TextBox.Text = ""
+	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextBox.TextSize = 14.000
+	
+	local VectorValue = Instance.new("Vector3Value")
+	local DefaultSize = Instance.new("Vector3Value")
+	local SizeTable = {0.1,0.1,0.1}
+	
+	VectorValue.Parent = TextBox
+	
+	DefaultSize.Name = "DefaultSize"
+	DefaultSize.Parent = VectorValue
+	
+	DefaultSize.Changed:Connect(function()
+		local a = DefaultSize.Value
+		SizeTable = {a.X, a.Y, a.Z}
+	end)
+	
+	TextBox.FocusLost:Connect(function()
+		local Text = TextBox.Text
+		Text = string.gsub(Text, "%s+", "")
+		Text = string.split(Text,",")
+		
+		if #Text == 1 and tonumber(Text[1]) and Text[1] ~= "" then
+			for i = 2,3 do
+				Text[i] = Text[1]
+			end
+		else
+			for i = 1,3 do
+				if not tonumber(Text[i]) then
+					Text[i] = SizeTable[i]
+				end
+				tonumber(Text[i])
+			end
+		end
+		VectorValue.Value = Vector3.new(Text[1],Text[2],Text[3])
+		TextBox.Text = tostring(VectorValue.Value)
+	end)
+
+	return VectorValue
+end
+
 module.CreateButton = function(Player, Section, Name)
 	local Button = Instance.new("Frame")
 	local Button_2 = Instance.new("TextButton")
@@ -496,4 +577,5 @@ module.CreateKeybind = function(Player, Section, Name, PlaceHolder)
 	
 	return StringVal
 end
+
 return module

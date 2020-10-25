@@ -21,7 +21,7 @@ local tab = uilib:CreateTab(<gui>, <guiname>)
 
 creating a section **\<section>**
 ```lua
-local tab = uilib:CreateSection(<tab>, <sectionname>)
+local section = uilib:CreateSection(<tab>, <sectionname>)
 ```
 
 creating a textbox -- returns textbox

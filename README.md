@@ -26,22 +26,22 @@ local section = uilib:CreateSection(<tab>, <sectionname>)
 
 creating a textbox -- returns textbox
 ```lua
-local tab = uilib:CreateTextBox(<tab>, <section>, <placeholdertext>)
+local textbox = uilib:CreateTextBox(<tab>, <section>, <placeholdertext>)
 ```
 
 creating a button  -- returns textbutton
 ```lua
-local tab = uilib:CreateTab(<section>, <name>)
+local button = uilib:CreateButton(<section>, <name>)
 ```
 
 creating a toggle button  -- returns boolvalue
 ```lua
-local tab = uilib:CreateToggle(<section>, <name>)
+local toggle = uilib:CreateToggle(<section>, <name>)
 ```
 
 creating a keybind -- returns string (lower)
 ```lua
-local tab = uilib:CreateKeybind(<section>, <name>, <bind>)
+local keybind = uilib:CreateKeybind(<section>, <name>, <bind>)
 ```
 
 # to do:

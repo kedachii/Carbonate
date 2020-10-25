@@ -26,7 +26,7 @@ local section = uilib:CreateSection(<tab>, <sectionname>)
 
 creating a textbox -- returns textbox
 ```lua
-local textbox = uilib:CreateTextBox(<section>, <placeholdertext>)
+local textbox = uilib:CreateTextBox(<section>, <name>, <placeholdertext>)
 ```
 
 creating a button  -- returns textbutton
